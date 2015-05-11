@@ -14,6 +14,13 @@ proxyset=$http_proxy
 
 #get credentials
 
+#get number of arguments inserted
+
+#if 3, create proxy string
+
+#if 5, create proxy string, with auth
+
+#else, get variables in shell script
 #THIS ARE THE VARIABLES THAT HAVE TO BE CHANGED.
 proxy="proxy.yoursite.com"
 port="3128"
@@ -44,15 +51,8 @@ setenv(){
 }
 
 setfile(){
-	#create file
-	echo $proxy
-	
 	#edit info in the file
-	cat > /etc/apt/apt.conf.d/95proxies <<EOF 
-	Acquire::http::proxy \"$proxy\";
-	Acquire::ftp::proxy \"$proxy\";
-	Acquire::https::proxy \"$proxy\";
-EOF
+	echo "Acquire::http::proxy \"$proxy\";\nAcquire::ftp::proxy \"$proxy\";\nAcquire::https::proxy \"$proxy\";" | sudo tee /etc/apt/apt.conf.d/95proxies
 }
 
 removeproxy(){
@@ -73,7 +73,8 @@ removeenv(){
 }
 
 removefile(){
-	rm -r /etc/apt/apt.conf.d/95proxies
+	sudo bash -c "rm /etc/apt/apt.conf.d/95proxies"
+	sudo bash -c "rm /etc/apt/apt.conf.d/95Proxies"
 }
 
 if [ -n "$proxyset" ];
