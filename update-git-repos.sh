@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 REPOS=/home/gitoff
 SLEEP=10
 
@@ -17,7 +16,8 @@ function refreshgitrepo() {
 	for i in "${a[@]}";
 		do cd $i;
 		echo -e "\n\nREPOSITORY: $i\n";
-		git fetch
+		git stash;
+		git fetch;
 		git pull;
 		sleep $SLEEP;
 		cd ..;
