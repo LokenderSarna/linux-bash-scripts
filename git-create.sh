@@ -1,9 +1,5 @@
 #!/bin/bash
 
-# Author: Fred Brooker <original@fredbrooker.cz>
-# URL: http://fredbrooker.cz/
-
-
 if [ -z "$1" ]
 then
 	echo -e "\nCreates new git repository.\n\nSyntax: $(basename $0) <name>\n"
@@ -14,12 +10,13 @@ which git >/dev/null 2>&1
 if [ $? -eq 1 ]
 then
 	echo "Installing git-core package..."
-	sudo apt-get install git-core
+	sudo apt-get install -yqq git-core
 fi
+
 which git >/dev/null 2>&1
 if [ $? -eq 1 ]
 then
-	echo -e "git is not installed!\n"
+	echo -e "ERROR: git is not installed!\n"
 	exit 1
 fi
 
@@ -34,4 +31,5 @@ else
 fi
 
 echo -e "\nDone.\n"
+
 exit 0
