@@ -31,8 +31,9 @@ then
 	exit 1
 fi
 
-detox --special --remove-trailing -r -v -s utf_8 "$1"
-detox --special --remove-trailing -r -v -s lower "$1"
+detox --special -r -v -s utf_8 "$1/"
+detox --special -r -v -s lower "$1/"
+find "$1/" -type f -exec chmod 0644 {} \;
 
 echo -e "\nDone.\n"
 
